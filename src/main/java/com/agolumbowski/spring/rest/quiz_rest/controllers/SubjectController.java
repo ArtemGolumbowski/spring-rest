@@ -7,6 +7,9 @@ package com.agolumbowski.spring.rest.quiz_rest.controllers;
 
 import com.agolumbowski.spring.rest.quiz_rest.entity.Subject;
 import com.agolumbowski.spring.rest.quiz_rest.service.SubjectService;
+import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility;
+import com.fasterxml.jackson.annotation.PropertyAccessor;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -45,7 +48,6 @@ public class SubjectController {
 
     @PutMapping("/subjects")
     public Subject editSubject(@RequestBody Subject subject) {
-
         return subjectService.save(subject);
 
     }

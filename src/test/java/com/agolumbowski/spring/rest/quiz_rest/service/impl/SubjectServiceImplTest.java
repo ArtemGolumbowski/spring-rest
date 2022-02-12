@@ -12,32 +12,19 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
 
 /**
  *
  * @author agolu
  */
+@SpringBootTest
 public class SubjectServiceImplTest {
     
     public SubjectServiceImplTest() {
     }
 
-    @org.junit.BeforeClass
-    public static void setUpClass() throws Exception {
-    }
-
-    @org.junit.AfterClass
-    public static void tearDownClass() throws Exception {
-    }
-
-    @org.junit.Before
-    public void setUp() throws Exception {
-    }
-
-    @org.junit.After
-    public void tearDown() throws Exception {
-    }
     
     @BeforeClass
     public static void setUpClass() {

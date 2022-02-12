@@ -1,12 +1,9 @@
 package com.agolumbowski.spring.rest.quiz_rest.controllers;
 
 import com.agolumbowski.spring.rest.quiz_rest.entity.Quiz;
-import com.agolumbowski.spring.rest.quiz_rest.entity.Subject;
 import com.agolumbowski.spring.rest.quiz_rest.service.QuizService;
 import com.agolumbowski.spring.rest.quiz_rest.service.SubjectService;
-import java.util.List;
 import org.springframework.data.domain.Page;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;

@@ -5,6 +5,8 @@
  */
 package com.agolumbowski.spring.rest.quiz_rest.entity;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility;
 import java.io.Serializable;
 import javax.persistence.*;
 
@@ -14,6 +16,7 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "subjects")
+@JsonAutoDetect(fieldVisibility = Visibility.ANY)
 public class Subject implements Serializable{
 
     private String name;

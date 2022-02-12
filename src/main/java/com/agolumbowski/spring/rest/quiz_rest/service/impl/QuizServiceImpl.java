@@ -29,7 +29,6 @@ public class QuizServiceImpl implements QuizService {
 
     private final QuizRepository quizRepository;
     private final UserService userService;
-    @Autowired
     private final HttpSession httpSession;
     private final QuestionService questionService;
 
@@ -61,7 +60,7 @@ public class QuizServiceImpl implements QuizService {
             return quizRepository.findAll(PageRequest.of(currentPage, countPerPage, Sort.by(sort)));
         } else {
             return quizRepository.findBySubjectId(subjectId,
-                    PageRequest.of(currentPage, currentPage, Sort.by(sort)));
+                    PageRequest.of(currentPage, countPerPage, Sort.by(sort)));
         }
 
     }
@@ -93,7 +92,7 @@ public class QuizServiceImpl implements QuizService {
         }
         if (currentQuestion + 1 >= size) {
 
-            return finishQuiz(user, quizId);
+//            return finishQuiz(user, quizId);
 
         } else {
             currentQuestion++;
