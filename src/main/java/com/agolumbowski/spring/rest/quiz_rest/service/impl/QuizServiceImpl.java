@@ -10,7 +10,6 @@ import com.agolumbowski.spring.rest.quiz_rest.service.QuizService;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import javax.servlet.http.HttpSession;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;

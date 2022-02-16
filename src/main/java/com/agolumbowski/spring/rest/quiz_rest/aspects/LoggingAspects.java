@@ -1,6 +1,4 @@
-
 package com.agolumbowski.spring.rest.quiz_rest.aspects;
-
 
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
@@ -17,14 +15,15 @@ import org.springframework.stereotype.Component;
  */
 @Aspect
 @Component
-public class LoggingAspects {  
+public class LoggingAspects {
+
     private final Logger logger = LogManager.getLogger();
-    
-    
-    @Before("execution(public com.agolumbowski.spring.rest.quiz_rest.entity.Subject read(..))")
-    public void beforeAllMethods(JoinPoint joinPoint){
-      
-        logger.log(Level.INFO, joinPoint.getSignature()+"------------------------------------------");
+
+    @Before("execution(* read(..))")
+    public void beforeAllMethods(JoinPoint joinPoint) {
+
+        logger.log(Level.INFO, "trying to execute method " + joinPoint.getSignature() + " args: ");
+        logger.log(Level.INFO, joinPoint.getArgs());
 
     }
 }

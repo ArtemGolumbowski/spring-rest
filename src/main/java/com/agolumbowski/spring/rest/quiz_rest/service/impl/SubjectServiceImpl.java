@@ -39,7 +39,7 @@ public class SubjectServiceImpl implements SubjectService {
 
     @Override
     public Subject read(Long subjectId) {
-        return subjectRepository.getById(subjectId);
+        return subjectRepository.findById(subjectId).get();
     }
 
     @Override

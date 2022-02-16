@@ -16,7 +16,6 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "subjects")
-@JsonAutoDetect(fieldVisibility = Visibility.ANY)
 public class Subject implements Serializable{
 
     private String name;
