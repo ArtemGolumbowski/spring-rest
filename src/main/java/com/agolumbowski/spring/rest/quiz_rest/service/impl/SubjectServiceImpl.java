@@ -6,6 +6,7 @@
 package com.agolumbowski.spring.rest.quiz_rest.service.impl;
 
 import com.agolumbowski.spring.rest.quiz_rest.entity.Subject;
+import com.agolumbowski.spring.rest.quiz_rest.exceptions.MyNoSuchElementException;
 import com.agolumbowski.spring.rest.quiz_rest.repository.SubjectRepository;
 import com.agolumbowski.spring.rest.quiz_rest.service.SubjectService;
 import java.util.List;
@@ -39,6 +40,9 @@ public class SubjectServiceImpl implements SubjectService {
 
     @Override
     public Subject read(Long subjectId) {
+        if(subjectRepository.findById(subjectId).isEmpty()){
+            throw new MyNoSuchElementException("There is no subject with id= "+subjectId+" in DataBase");
+        }
         return subjectRepository.findById(subjectId).get();
     }
 
