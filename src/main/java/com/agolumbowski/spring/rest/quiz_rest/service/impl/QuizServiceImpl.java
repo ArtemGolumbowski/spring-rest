@@ -91,14 +91,16 @@ public class QuizServiceImpl implements QuizService {
         }
         if (currentQuestion + 1 >= size) {
 
-//            return finishQuiz(user, quizId);
+            return finishQuiz(user, quizId);
 
         } else {
             currentQuestion++;
             httpSession.setAttribute(RIGHT_ANSWER_COUNT, rightAnswerCount);
             httpSession.setAttribute(CURRENT_QUESTION, currentQuestion);
+            
+            return "redirect:/quizzing/" + quizId;
         }
-        return "redirect:/quizzing/" + quizId;
+
     }
 
     @Override

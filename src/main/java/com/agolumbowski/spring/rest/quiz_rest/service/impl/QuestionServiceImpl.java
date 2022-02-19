@@ -2,9 +2,11 @@ package com.agolumbowski.spring.rest.quiz_rest.service.impl;
 
 import com.agolumbowski.spring.rest.quiz_rest.entity.Answer;
 import com.agolumbowski.spring.rest.quiz_rest.entity.Question;
+import com.agolumbowski.spring.rest.quiz_rest.exceptions.MyNoSuchElementException;
 import com.agolumbowski.spring.rest.quiz_rest.repository.QuestionRepository;
 import com.agolumbowski.spring.rest.quiz_rest.service.QuestionService;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -36,7 +38,12 @@ public class QuestionServiceImpl implements QuestionService {
 
     @Override
     public Question read(Long questionId) {
-        return questionRepository.getById(questionId);
+        Optional<Question>questionOptional=questionRepository.findById(questionId);
+        if(questionOptional.isEmpty()){
+            throw new MyNoSuchElementException("There is no question with id= "+questionId
+                    + "in Database");
+        }
+        return questionOptional.get();
     }
 
     @Override

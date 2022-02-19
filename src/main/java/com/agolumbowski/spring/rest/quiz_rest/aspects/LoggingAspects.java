@@ -19,7 +19,7 @@ public class LoggingAspects {
 
     private final Logger logger = LogManager.getLogger();
 
-    @Before("execution(* read(..))")
+    @Before("execution(* agolumbowski*(..))")
     public void beforeAllMethods(JoinPoint joinPoint) {
 
         logger.log(Level.INFO, "trying to execute method " + joinPoint.getSignature() + " args: ");

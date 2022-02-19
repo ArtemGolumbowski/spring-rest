@@ -2,6 +2,7 @@
 package com.agolumbowski.spring.rest.quiz_rest.service.impl;
 
 import com.agolumbowski.spring.rest.quiz_rest.entity.Answer;
+import com.agolumbowski.spring.rest.quiz_rest.exceptions.MyNoSuchElementException;
 import com.agolumbowski.spring.rest.quiz_rest.repository.AnswerRepository;
 import com.agolumbowski.spring.rest.quiz_rest.service.AnswerService;
 import org.springframework.data.domain.Page;
@@ -36,10 +37,11 @@ public class AnswerServiceImpl implements AnswerService {
     }
 
     @Override
-    public Answer read(Long answerId) {
-        
-        return answerRepository.getById(answerId);
-        
+    public Answer read(Long answerId) {        
+        if(answerRepository.findById(answerId).isEmpty()){
+            throw new MyNoSuchElementException("There is no subject with id= "+answerId+" in DataBase");
+        }
+            return answerRepository.findById(answerId).get();
     }
 
     @Override

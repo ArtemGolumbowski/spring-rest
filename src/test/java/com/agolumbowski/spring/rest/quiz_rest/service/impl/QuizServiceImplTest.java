@@ -174,11 +174,11 @@ public class QuizServiceImplTest {
     public void testQuizCheckUserAnswers() {
         System.out.println("quizCheckUserAnswers");
         Question questionWithUserAnswers = new Question();
-        questionWithUserAnswers.setAnswers(new ArrayList<Answer>());
+        questionWithUserAnswers.setAnswers(new ArrayList<>());
         questionWithUserAnswers.getAnswers().add(new Answer("first", true));
         questionWithUserAnswers.getAnswers().add(new Answer("second", false));
         Quiz quiz=new Quiz();
-        quiz.setQuestions(new ArrayList<Question>());
+        quiz.setQuestions(new ArrayList<>());
         quiz.getQuestions().add(new Question());
         quiz.getQuestions().add(questionWithUserAnswers);
         User user = new User();
