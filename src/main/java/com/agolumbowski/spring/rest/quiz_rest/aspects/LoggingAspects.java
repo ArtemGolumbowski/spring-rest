@@ -19,7 +19,7 @@ public class LoggingAspects {
 
     private final Logger logger = LogManager.getLogger();
 
-    @Before("execution(* agolumbowski*(..))")
+    @Before("execution(* com.agolumbowski.spring.rest.quiz_rest.service..*(..))")
     public void beforeAllMethods(JoinPoint joinPoint) {
 
         logger.log(Level.INFO, "trying to execute method " + joinPoint.getSignature() + " args: ");

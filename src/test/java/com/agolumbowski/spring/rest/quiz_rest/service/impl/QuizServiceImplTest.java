@@ -13,6 +13,7 @@ import com.agolumbowski.spring.rest.quiz_rest.service.QuestionService;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import javax.servlet.http.HttpSession;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -92,7 +93,8 @@ public class QuizServiceImplTest {
         Long id = 8L;
         Quiz expResult = new Quiz();
         expResult.setId(8L);
-        Mockito.when(quizRepository.getById(id)).thenReturn(expResult);
+        Optional <Quiz> quizOptional = Optional.of(expResult);
+        Mockito.when(quizRepository.findById(id)).thenReturn(quizOptional);
         Quiz result = instance.read(id);
         assertEquals(expResult.getId(), result.getId());
     }
@@ -184,7 +186,7 @@ public class QuizServiceImplTest {
         User user = new User();
         Long quizId = 6L;
         
-        Mockito.when(httpSession.getAttribute(CURRENT_QUESTION)).thenReturn(1);
+        Mockito.when(httpSession.getAttribute(CURRENT_QUESTION)).thenReturn(0);
         Mockito.when(httpSession.getAttribute(RIGHT_ANSWER_COUNT)).thenReturn(1);
         Mockito.when(quizRepository.getById(quizId)).thenReturn(quiz);
         Mockito.when(questionService.isCorrect(questionWithUserAnswers)).thenReturn(true);
@@ -196,16 +198,32 @@ public class QuizServiceImplTest {
     /**
      * Test of finishQuiz method, of class QuizServiceImpl.
      */
-//    @Test
-//    public void testFinishQuiz() {
-//        System.out.println("finishQuiz");
-//        User user = null;
-//        Long quizId = null;
-//        String expResult = "";
-//        String result = instance.finishQuiz(user, quizId);
-//        assertEquals(expResult, result);
-//        // TODO review the generated test code and remove the default call to fail.
-//        fail("The test case is a prototype.");
-//    }
+    @Test
+    public void testFinishQuiz() {
+        System.out.println("finishQuiz");
+        User user = new User();
+        Long quizId = 6L;
+        Quiz quiz = new Quiz();
+        quiz.setId(quizId);
+        quiz.setQuestions(new ArrayList<>());
+        quiz.getQuestions().add(new Question());
+        quiz.getQuestions().add(new Question());
+        String expResult = "redirect:/results";
+        Mockito.when(quizRepository.getById(quizId)).thenReturn(quiz);
+        Mockito.when(httpSession.getAttribute(START_QUIZ_TIME)).thenReturn(LocalDateTime.now().minusMinutes(40));
+        Mockito.when(httpSession.getAttribute(RIGHT_ANSWER_COUNT)).thenReturn(1);
+        
+        String result = instance.finishQuiz(user, quizId);
+        Mockito.verify(userService).save(user);
+        Mockito.verify(httpSession).removeAttribute(START_QUIZ_TIME);
+        Mockito.verify(httpSession).removeAttribute(RIGHT_ANSWER_COUNT);
+        Mockito.verify(httpSession).removeAttribute(CURRENT_QUESTION);
+        assertNotNull(user.getUserQuizResults().get(0).getUserPassDate());
+        assertNotNull(user.getUserQuizResults().get(0).getUserQuizTime());
+        assertEquals(user.getUserQuizResults().get(0).getTest(), quiz);
+        assertEquals(user.getUserQuizResults().get(0).getScore(), 50);
+        assertEquals(expResult, result);
+  
+    }
 
 }

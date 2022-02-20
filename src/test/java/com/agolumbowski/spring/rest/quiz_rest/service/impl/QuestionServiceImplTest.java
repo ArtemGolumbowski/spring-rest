@@ -9,6 +9,7 @@ import com.agolumbowski.spring.rest.quiz_rest.entity.Question;
 import com.agolumbowski.spring.rest.quiz_rest.repository.QuestionRepository;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -98,7 +99,8 @@ public class QuestionServiceImplTest {
         Long questionId = 5l;
         Question expResult = new Question();
         expResult.setId(questionId);
-        Mockito.when(questionRepository.getById(questionId)).thenReturn(expResult);
+        Optional <Question>questionOptional=Optional.of(expResult);
+        Mockito.when(questionRepository.findById(questionId)).thenReturn(questionOptional);
         Question result = instance.read(questionId);
         assertEquals(expResult, result);
 

@@ -4,11 +4,13 @@ import com.agolumbowski.spring.rest.quiz_rest.entity.Question;
 import com.agolumbowski.spring.rest.quiz_rest.entity.Quiz;
 import com.agolumbowski.spring.rest.quiz_rest.entity.User;
 import com.agolumbowski.spring.rest.quiz_rest.entity.UserQuizResult;
+import com.agolumbowski.spring.rest.quiz_rest.exceptions.MyNoSuchElementException;
 import com.agolumbowski.spring.rest.quiz_rest.repository.QuizRepository;
 import com.agolumbowski.spring.rest.quiz_rest.service.QuestionService;
 import com.agolumbowski.spring.rest.quiz_rest.service.QuizService;
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.util.Optional;
 import javax.servlet.http.HttpSession;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -45,7 +47,12 @@ public class QuizServiceImpl implements QuizService {
 
     @Override
     public Quiz read(Long id) {
-        return quizRepository.getById(id);
+        Optional<Quiz>quizOptional=quizRepository.findById(id);
+        if(quizOptional.isEmpty()){
+            throw new MyNoSuchElementException("there is no quiz with id= "
+            + id + "in Database");
+        }
+        return quizOptional.get();
     }
 
     @Override

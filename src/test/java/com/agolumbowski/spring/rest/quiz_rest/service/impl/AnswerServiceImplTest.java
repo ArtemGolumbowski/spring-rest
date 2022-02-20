@@ -6,6 +6,7 @@ package com.agolumbowski.spring.rest.quiz_rest.service.impl;
 
 import com.agolumbowski.spring.rest.quiz_rest.entity.Answer;
 import com.agolumbowski.spring.rest.quiz_rest.repository.AnswerRepository;
+import java.util.Optional;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -71,7 +72,8 @@ public class AnswerServiceImplTest {
         Long answerId = 3L;
         Answer expResult = new Answer("answer", true);
         expResult.setId(answerId);
-        Mockito.when(answerRepository.getById(answerId)).thenReturn(expResult);
+        Optional<Answer>answerOptional=Optional.of(expResult);
+        Mockito.when(answerRepository.findById(answerId)).thenReturn(answerOptional);
         Answer result = instance.read(answerId);
         assertEquals(expResult, result);
         
